@@ -1,2 +1,2 @@
 # ml-from-scratch
-building core ML algorithms from scratch in python + numpy
+learning ML by building algorithms from scratch in python + numpy
