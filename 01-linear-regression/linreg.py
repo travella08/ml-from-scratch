@@ -72,3 +72,6 @@ def train(X, y, lr=0.01, epochs=1000):
         b -= db * lr
         losses.append(mse_loss(y, predict(X, w, b)))
     return w, b, losses
+def r2_score(y_true, y_pred):
+    r2 = 1 - (mse_loss(y_true, y_pred))/ np.var(y_true)
+    return r2
