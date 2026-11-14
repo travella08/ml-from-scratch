@@ -1,16 +1,16 @@
-# Linear Regression from Scratch
+# linear regression from scratch
 
 Linear regression trained with gradient descent in pure NumPy, verified against scikit-learn on synthetic data and California housing.
 
 ![The model's line after 0, 10, 50 and 500 epochs](assets/line_fitting.png)
 
-## The math
+## the math
 
-$$\hat{y} = Xw + b \qquad L = \frac{1}{n}\sum(\hat{y} - y)^2$$
+$$\hat{\mathbf{y}} = \mathbf{X}\mathbf{w} + b \qquad L = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2$$
 
-$$\frac{\partial L}{\partial w} = \frac{2}{n}X^\top(\hat{y} - y) \qquad \frac{\partial L}{\partial b} = \frac{2}{n}\sum(\hat{y} - y)$$
+$$\frac{\partial L}{\partial \mathbf{w}} = \frac{2}{n}\mathbf{X}^\top(\hat{\mathbf{y}} - \mathbf{y}) \qquad \frac{\partial L}{\partial b} = \frac{2}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)$$
 
-## Results
+## results
 
 **Synthetic data** ($y = 5x + 10$ + noise): learned $w = 4.968$, $b = 10.037$, matching scikit-learn to 4 decimal places.
 
@@ -23,7 +23,7 @@ $$\frac{\partial L}{\partial w} = \frac{2}{n}X^\top(\hat{y} - y) \qquad \frac{\p
 
 ![Learning rate comparison](assets/lr_comparison.png)
 
-## Run it
+## run it
 
 ```bash
 pip install -r requirements.txt
@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 Then open `experiments.ipynb`. The model is in `linreg.py`.
 
-## What I learned
+## what i learned
 
 - How to derive gradients by hand and check them numerically
 - Too large a learning rate makes training diverge, not just slow down
