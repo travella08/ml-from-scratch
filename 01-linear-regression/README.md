@@ -32,8 +32,5 @@ pip install -r requirements.txt
 Then open `experiments.ipynb`. The model is in `linreg.py`.
 
 ## what i learned
-
-- How to derive gradients by hand and check them numerically
-- Too large a learning rate makes training diverge, not just slow down
+- Too large a learning rate makes training diverge
 - Features on different scales need standardizing before gradient descent works
-- Silent broadcasting bugs: always check array shapes
