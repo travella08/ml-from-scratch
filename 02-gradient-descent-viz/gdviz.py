@@ -1,5 +1,26 @@
 import numpy as np
 from dataclasses import dataclass
+import matplotlib.pyplot as plt
+
+
+# --- Contour plots -------------------------------------------------------
+
+def plot_contours(surface, ax, n_levels=30, log_levels=False, resolution=300):
+    xs = np.linspace(*surface.xlim, resolution)
+    ys = np.linspace(*surface.ylim, resolution)
+    X, Y = np.meshgrid(xs, ys)    
+    Z = surface.f(X, Y)                             
+    if log_levels:
+        levels = np.logspace(-2, np.log10(Z.max()), n_levels)
+    else:
+        levels = n_levels
+    ax.contour(X, Y, Z, levels=levels, cmap="viridis", linewidths=0.8)
+    for m in surface.minima:
+        ax.plot(*m, "r*", markersize=12)
+    ax.set_aspect("equal")
+    ax.set_title(surface.name)
+
+
 
 
 @dataclass
@@ -90,7 +111,8 @@ def himmelblau_grad(p):
     x, y = p
     partial_x = 4*x*(x**2 + y - 11) + 2*(x + y**2 - 7)
     partial_y = 2*(x**2 + y - 11) + 4*y*(x + y**2 - 7)
-    np.array([partial_x, partial_y])
+    return np.array([partial_x, partial_y])
+    
 
 
 # --- Gradient checking ---------------------------------------------------
@@ -133,7 +155,35 @@ def check_grad(surface, n_points=20, seed=0):
 
 # --- Surface instances (fill in after the functions above work) ----------
 
-ROUND_BOWL = None
-STRETCHED_BOWL = None
-ROSENBROCK = None
-HIMMELBLAU = None
+ROUND_BOWL = Surface(
+    name="round bowl",
+    f=round_bowl_f,
+    grad=round_bowl_grad,
+    xlim=(-5,5),
+    ylim=(-5,5),
+    minima=[(0,0)]
+)
+STRETCHED_BOWL = Surface(
+    name="stretched bowl",
+    f=stretched_bowl_f,
+    grad=stretched_bowl_grad,
+    xlim=(-5,5),
+    ylim=(-5,5),
+    minima=[(0,0)]
+)
+ROSENBROCK = Surface(
+    name="rosenbrock surface",
+    f=rosenbrock_f,
+    grad=rosenbrock_grad,
+    xlim=(-2, 2),
+    ylim=(-1,3),
+    minima=[(1,1)]
+)
+HIMMELBLAU = Surface(
+    name="himmelblau surface",
+    f=himmelblau_f,
+    grad=himmelblau_grad,
+    xlim=(-5, 5),
+    ylim=(-5,5),
+    minima=[(3, 2), (-2.805, 3.131), (-3.779, -3.283), (3.584, -1.848)]
+)
