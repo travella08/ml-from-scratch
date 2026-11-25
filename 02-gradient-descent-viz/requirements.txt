@@ -1,6 +1,0 @@
-# Replace with pinned versions once installed: pip freeze > requirements.txt
-numpy
-matplotlib
-pillow
-jupyter
-# torch (CPU build) is added in Phase 7, for verification only
