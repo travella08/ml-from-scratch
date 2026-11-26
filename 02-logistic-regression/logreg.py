@@ -13,9 +13,15 @@ def sigmoid(z):
     Returns:
         array of the same shape, values in (0, 1)
     """
-    raise NotImplementedError
+    z = np.asarray(z, dtype=float)
+    out = np.empty_like(z)
 
-
+    for i in range(len(z)):
+        if z[i] < 0:
+            out[i] = np.exp(z[i]) / (1 + np.exp(z[i]))
+        else:
+            out[i] = 1 / (1 + np.exp(-z[i]))
+    return out
 def predict_proba(X, w, b):
     """
     Probability that each example belongs to class 1.
@@ -28,8 +34,7 @@ def predict_proba(X, w, b):
     Returns:
         probabilities, shape (n,)
     """
-    raise NotImplementedError
-
+    return sigmoid(X @ w + b)
 
 def predict(X, w, b, threshold=0.5):
     """
@@ -44,7 +49,10 @@ def predict(X, w, b, threshold=0.5):
     Returns:
         predicted labels (0 or 1), shape (n,)
     """
-    raise NotImplementedError
+    probs = predict_proba(X, w, b)
+    out = (probs >= threshold)
+    return out.astype(int)
+
 
 
 def bce_loss(y_true, y_prob):
@@ -58,7 +66,13 @@ def bce_loss(y_true, y_prob):
     Returns:
         a single number
     """
-    raise NotImplementedError
+    n = len(y_true)
+
+    eps = 1e-12
+    y_prob = np.clip(y_prob, eps, 1 - eps)
+    out = -1/n * sum(y_true * np.log(y_prob) + (1-y_true) * np.log(1-y_prob))
+
+    return out
 
 
 def compute_gradients(X, y_true, y_prob):
